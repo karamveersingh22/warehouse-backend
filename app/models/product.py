@@ -7,5 +7,9 @@ class ProductInDB(BaseModel):
     sku_code: str
     product_name: Optional[str] = None
     category: str
-    inventory: int
+    sizes: dict[str, int]
     latest_updated_date: datetime
+
+    @property
+    def total_inventory(self) -> int:
+        return sum(self.sizes.values())
