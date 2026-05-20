@@ -20,8 +20,14 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    # allow_origins=["https://godown-frontend-rust.vercel.app/"],  # Replace with your Vercel URL in production
-    allow_origins=["https://godown-frontend-rust.vercel.app"],  # Replace with your Vercel URL in production
+    # NOTE: CORS must match the browser Origin exactly (no trailing slash).
+    # Keep explicit local dev origins, and allow Vercel preview/prod domains via regex.
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "https://godown-frontend-rust.vercel.app",
+    ],
+    allow_origin_regex=r"https://.*\.vercel\.app$",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
