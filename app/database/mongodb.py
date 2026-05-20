@@ -1,7 +1,14 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from app.config import settings
 
-client: AsyncIOMotorClient = None
+client = AsyncIOMotorClient(
+    settings.MONGO_URL,
+    tls=True,
+    tlsAllowInvalidCertificates=False,
+    serverSelectionTimeoutMS=30000,
+    connectTimeoutMS=30000,
+    socketTimeoutMS=30000,
+)
 db = None
 
 
